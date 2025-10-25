@@ -23,85 +23,59 @@ int compare(const void *a, const void *b)
 Player *createPlayerFromInput()
 {
   char buffer[MAX_LENGTH];
-  printf("Inserisci il nome del giocatore: ");
-  scanf("%s", buffer);
-  if (strlen(buffer) == 0)
-  {
+  printf("Inserisci il nome del Giocatore: ");
+  scanf("%s",buffer);
+  if(strlen(buffer)== 0){
     return NULL;
   }
 
   int estrazioni;
-  printf("Inserisci il numero di estrazioni da fare: ");
-  scanf("%d", &estrazioni);
-  if (estrazioni <= 0)
-  {
+  printf("Inserisci il numro di estrazioni da fare: ");
+  scanf("%d",&estrazioni);
+  if(estrazioni<= 0){
     return NULL;
   }
-
-  int *numeri = (int *)malloc(sizeof(int) * estrazioni);
-  if (numeri == NULL)
-  {
+  int *numeri  = (int *)malloc(sizeof(int) * estrazioni);
+  if(numeri == NULL){
     return NULL;
   }
-
-  // Genera numeri nel range corretto [MIN_RANDOM, MAX_RANDOM]
   for (int i = 0; i < estrazioni; i++)
   {
     numeri[i] = MIN_RANDOM + rand() % (MAX_RANDOM - MIN_RANDOM + 1);
   }
 
-  // Ordina i numeri
-  qsort(numeri, estrazioni, sizeof(int), compare);
+  qsort(numeri,estrazioni,sizeof(int),compare);
 
   Player *p = (Player *)malloc(sizeof(Player));
-  if (p == NULL)
-  {
+  if(p == NULL){
     free(numeri);
     return NULL;
   }
 
-  p->name = (char *)malloc(sizeof(char) * (strlen(buffer) + 1));
-  if (p->name == NULL)
-  {
-    free(numeri);
+  p->name = (char *)malloc(sizeof(char) * strlen(buffer)+1);
+  if(p->name == NULL){
     free(p);
+    free(numeri);
     return NULL;
   }
-  strcpy(p->name, buffer);
-
+  strcpy(p->name,buffer);
   p->numbers_count = estrazioni;
   p->sorted_numbers = numeri;
-
   return p;
 }
 
 int destroyPlayer(Player **player)
 {
-  // ORDINE CORRETTO: prima controlla player, poi *player
-  if (player == NULL || *player == NULL)
-  {
+  if(player == NULL || *player == NULL || (*player)->name == NULL || (*player)->sorted_numbers == NULL){
     return -1;
   }
-
-  // Libera il nome (se esiste)
-  if ((*player)->name != NULL)
-  {
-    free((*player)->name);
-  }
-
-  // Libera l'array di numeri (se esiste)
-  if ((*player)->sorted_numbers != NULL)
-  {
-    free((*player)->sorted_numbers);
-  }
-
-  // Libera la struttura Player
-  free(*player);
-
-  // Imposta il puntatore a NULL
+  free((*player)->name);
+  free((*player)->sorted_numbers);
+  free((*player));
   *player = NULL;
-
   return 0;
+
+
 }
 
 int main()
