@@ -49,7 +49,7 @@ typedef struct
     CourseClass *classes;
 } School;
 
-// const dice che la variabile non può essere modificata
+// const dice che la variabile non puï¿½ essere modificata
 char *strdup(const char *str)
 {
     if (str == NULL)
@@ -57,7 +57,7 @@ char *strdup(const char *str)
         return NULL;
     }
 
-    char *ret = (char *)malloc(sizeof(char) * strlen(str));
+    char *ret = (char *)malloc(sizeof(char) * strlen(str)+1);
     if (ret == NULL)
     {
         return NULL;
@@ -167,8 +167,9 @@ CourseClass *createCourseClass(char *class_name, Student *students,int students_
         free(courseClass);
         return NULL;
     }
-    courseClass->students = (Student *)malloc(sizeof(Student) * students_count);
+    courseClass->total_students = students_count;
 
+    courseClass->students = (Student *)malloc(sizeof(Student) * students_count);
     if (courseClass->students == NULL)
     {
         free(courseClass->name);
@@ -191,7 +192,7 @@ CourseClass *createCourseClass(char *class_name, Student *students,int students_
         *(courseClass->students + i) = *temp;
         free(temp);
     }
-    courseClass->total_students = students_count;
+    
     return courseClass;
 }
 

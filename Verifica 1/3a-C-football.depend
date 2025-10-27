@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1761559553 source:c:\users\p.olivero.3584\documents\sistemi-quarte-3a-c-football-main\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	"testing.h"
+	"football.h"
+
+1760451474 c:\users\p.olivero.3584\documents\sistemi-quarte-3a-c-football-main\testing.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
+1761560403 c:\users\p.olivero.3584\documents\sistemi-quarte-3a-c-football-main\football.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+

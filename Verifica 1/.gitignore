@@ -1,0 +1,8 @@
+.vscode
+main
+*.exe
+program
+tests/*
+!tests/main.c
+bin/*
+obj/*
