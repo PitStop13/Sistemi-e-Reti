@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1765353285 source:c:\users\p.olivero.3584\desktop\roba per la lettura da fat\prova\main.c
-	<stdio.h>
-	<stdlib.h>
-	<errno.h>
-
