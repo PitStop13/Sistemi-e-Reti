@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="6a-C-sorted-lists" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Run Tests">
+				<Option output="bin/Debug/6a-C-sorted-lists" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Run Main">
+				<Option output="6a-C-sorted-lists" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+			<Option target="Run Main" />
+		</Unit>
+		<Unit filename="node.h" />
+		<Unit filename="sorted_list.h" />
+		<Unit filename="tests/main.c">
+			<Option compilerVar="CC" />
+			<Option target="Run Tests" />
+		</Unit>
+		<Unit filename="tests/testing/test.h" />
+		<Unit filename="tests/testing/test_alloc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tests/testing/test_alloc.h" />
+		<Unit filename="tests/testing/test_assert.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tests/testing/test_assert.h" />
+		<Unit filename="tests/testing/test_groups.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tests/testing/test_groups.h" />
+		<Unit filename="tests/testing/test_mocks.h" />
+		<Unit filename="tests/testing/test_output.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tests/testing/test_output.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
