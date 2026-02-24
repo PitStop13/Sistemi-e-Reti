@@ -8,7 +8,7 @@
 
 typedef struct
 {
-  Node *first;
+    Node *first;
 } SortedList;
 
 /**
@@ -19,14 +19,14 @@ typedef struct
  */
 SortedList *createEmptySortedList()
 {
-  // implement function logic here...
-  SortedList *newList = (SortedList *)malloc(sizeof(SortedList));
-  if (newList == NULL)
-  {
-    return NULL;
-  }
-  newList->first = NULL;
-  return newList;
+    // implement function logic here...
+    SortedList *newList = (SortedList *)malloc(sizeof(SortedList));
+    if (newList == NULL)
+    {
+        return NULL;
+    }
+    newList->first = NULL;
+    return newList;
 }
 
 /**
@@ -39,41 +39,41 @@ SortedList *createEmptySortedList()
  */
 SortedList *cloneSortedList(SortedList *list)
 {
-  // implement function logic here...
-  if (list == NULL)
-  {
-    return NULL;
-  }
+    // implement function logic here...
+    if (list == NULL)
+    {
+        return NULL;
+    }
 
-  SortedList *newList = createEmptySortedList();
-  if (newList == NULL)
-  {
-    return NULL;
-  }
+    SortedList *newList = createEmptySortedList();
+    if (newList == NULL)
+    {
+        return NULL;
+    }
 
-  if (list->first == NULL)
-  {
+    if (list->first == NULL)
+    {
+        return newList;
+    }
+
+    newList->first = cloneNode(list->first);
+    if (newList->first == NULL)
+    {
+        return NULL;
+    }
+
+    Node *original = list->first;
+    Node *temp = newList->first;
+
+    while (original->next != NULL)
+    {
+        temp->next = cloneNode(original->next);
+
+        temp = temp->next;
+        original = original->next;
+    }
+
     return newList;
-  }
-
-  newList->first = cloneNode(list->first);
-  if (newList->first == NULL)
-  {
-    return NULL;
-  }
-
-  Node *original = list->first;
-  Node *temp = newList->first;
-
-  while (original->next != NULL)
-  {
-    temp->next = cloneNode(original->next);
-
-    temp = temp->next;
-    original = original->next;
-  }
-
-  return newList;
 }
 
 /**
@@ -85,28 +85,28 @@ SortedList *cloneSortedList(SortedList *list)
  */
 int destroySortedList(SortedList *list)
 {
-  // implement function logic here...
-  if (list == NULL)
-  {
-    return -1;
-  }
+    // implement function logic here...
+    if (list == NULL)
+    {
+        return -1;
+    }
 
-  if (list->first == NULL)
-  {
+    if (list->first == NULL)
+    {
+        free(list);
+        return 0;
+    }
+
+    Node *current = list->first;
+    Node *nextNode;
+    while (current != NULL)
+    {
+        nextNode = current->next;
+        destroyNode(current);
+        current = nextNode;
+    }
     free(list);
     return 0;
-  }
-
-  Node *current = list->first;
-  Node *nextNode;
-  while (current != NULL)
-  {
-    nextNode = current->next;
-    destroyNode(current);
-    current = nextNode;
-  }
-  free(list);
-  return 0;
 }
 
 /**
@@ -118,24 +118,24 @@ int destroySortedList(SortedList *list)
  */
 int getSortedListSize(SortedList *list)
 {
-  // implement function logic here...
-  if (list == NULL)
-  {
-    return -1;
-  }
-  if (list->first == NULL)
-  {
-    return 0;
-  }
+    // implement function logic here...
+    if (list == NULL)
+    {
+        return -1;
+    }
+    if (list->first == NULL)
+    {
+        return 0;
+    }
 
-  int count = 0;
-  Node *current = list->first;
-  while (current != NULL)
-  {
-    count++;
-    current = current->next;
-  }
-  return count;
+    int count = 0;
+    Node *current = list->first;
+    while (current != NULL)
+    {
+        count++;
+        current = current->next;
+    }
+    return count;
 }
 
 /**
@@ -150,32 +150,32 @@ int getSortedListSize(SortedList *list)
  */
 bool sortedListContains(SortedList *list, char *value)
 {
-  // implement function logic here...
-  if (list == NULL || value == NULL)
-  {
-    return false;
-  }
-  if (list->first == NULL)
-  {
-    return false;
-  }
-  Node *current = list->first;
-  while (current != NULL)
-  {
-    int cmp = strcmp(current->value, value);
-    if (cmp == 0)
+    // implement function logic here...
+    if (list == NULL || value == NULL)
     {
-      return true;
+        return false;
     }
-    // Ottimizzazione: se siamo oltre il valore cercato, possiamo fermarci
-    if (cmp > 0)
+    if (list->first == NULL)
     {
-      return false;
+        return false;
     }
-    current = current->next;
-  }
+    Node *current = list->first;
+    while (current != NULL)
+    {
+        int cmp = strcmp(current->value, value);
+        if (cmp == 0)
+        {
+            return true;
+        }
+        // Ottimizzazione: se siamo oltre il valore cercato, possiamo fermarci
+        if (cmp > 0)
+        {
+            return false;
+        }
+        current = current->next;
+    }
 
-  return false;
+    return false;
 }
 
 /**
@@ -193,35 +193,35 @@ int insertNodeInSortedList(SortedList *list, char *value)
     // implement function logic here...
     if (list == NULL || value == NULL)
     {
-      return -1;
+        return -1;
     }
 
     Node *newNode = createNode(value);
     if (newNode == NULL)
     {
-      return -1;
+        return -1;
     }
 
     // Lista vuota: inserisci come primo elemento
     if (list->first == NULL)
     {
-      list->first = newNode;
-      return 0;
+        list->first = newNode;
+        return 0;
     }
 
     // Inserimento in testa se il nuovo valore è minore del primo
     if (strcmp(value, list->first->value) < 0)
     {
-      newNode->next = list->first;
-      list->first = newNode;
-      return 0;
+        newNode->next = list->first;
+        list->first = newNode;
+        return 0;
     }
 
     // Cerca la posizione corretta nella lista
     Node *current = list->first;
     while (current->next != NULL && strcmp(value, current->next->value) > 0)
     {
-      current = current->next;
+        current = current->next;
     }
 
     // Inserisci il nodo nella posizione corretta
@@ -241,50 +241,50 @@ int insertNodeInSortedList(SortedList *list, char *value)
  */
 Node *removeNodeFromSortedList(SortedList *list, int index)
 {
-  // implement function logic here...
-  if (list == NULL || index < 0)
-  {
-    return NULL;
-  }
+    // implement function logic here...
+    if (list == NULL || index < 0)
+    {
+        return NULL;
+    }
 
-  if (list->first == NULL)
-  {
-    return NULL;
-  }
+    if (list->first == NULL)
+    {
+        return NULL;
+    }
 
-  Node *toRemove = NULL;
+    Node *toRemove = NULL;
 
-  // Rimozione del primo nodo (indice 0)
-  if (index == 0)
-  {
-    toRemove = list->first;
-    list->first = list->first->next;
+    // Rimozione del primo nodo (indice 0)
+    if (index == 0)
+    {
+        toRemove = list->first;
+        list->first = list->first->next;
+        toRemove->next = NULL; // Scollega il nodo dalla lista
+        return toRemove;
+    }
+
+    // Cerca il nodo all'indice specificato
+    Node *current = list->first;
+    int currentIndex = 0;
+
+    while (current->next != NULL && currentIndex < index - 1)
+    {
+        current = current->next;
+        currentIndex++;
+    }
+
+    // Verifica se l'indice è valido
+    if (current->next == NULL)
+    {
+        return NULL;
+    }
+
+    // Rimuovi il nodo
+    toRemove = current->next;
+    current->next = toRemove->next;
     toRemove->next = NULL; // Scollega il nodo dalla lista
+
     return toRemove;
-  }
-
-  // Cerca il nodo all'indice specificato
-  Node *current = list->first;
-  int currentIndex = 0;
-
-  while (current->next != NULL && currentIndex < index - 1)
-  {
-    current = current->next;
-    currentIndex++;
-  }
-
-  // Verifica se l'indice è valido
-  if (current->next == NULL)
-  {
-    return NULL;
-  }
-
-  // Rimuovi il nodo
-  toRemove = current->next;
-  current->next = toRemove->next;
-  toRemove->next = NULL; // Scollega il nodo dalla lista
-
-  return toRemove;
 }
 
 /**
@@ -294,23 +294,23 @@ Node *removeNodeFromSortedList(SortedList *list, int index)
  */
 void printSortedList(SortedList *list)
 {
-  // implement function logic here...
-  if (list == NULL)
-  {
-    return;
-  }
+    // implement function logic here...
+    if (list == NULL)
+    {
+        return;
+    }
 
-  if (list->first == NULL)
-  {
-    return;
-  }
+    if (list->first == NULL)
+    {
+        return;
+    }
 
-  Node *current = list->first;
-  while (current != NULL)
-  {
-    printf("%s\n", current->value);
-    current = current->next;
-  }
+    Node *current = list->first;
+    while (current != NULL)
+    {
+        printf("%s\n", current->value);
+        current = current->next;
+    }
 }
 
 #endif
