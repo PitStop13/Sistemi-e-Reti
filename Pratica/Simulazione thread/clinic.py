@@ -1,67 +1,56 @@
 from threading import Lock
 
 class Patient:
-    """A patient in the clinic."""
-
-    name: str
-    """The name of the patient."""
-
     def __init__(self, name):
-        """Initialize a new patient with the given name."""
         self.name = name
 
     def __str__(self):
-        """Return a string representation of the patient."""
         return f"Patient {self.name}"
 
+
 class Doctor:
-    """A doctor in the clinic."""
-
     name: str
-    """The name of the doctor."""
+    patients: list[Patient]   # ← PUNTO 1: attributi aggiunti
+    patients_lock: Lock       # ← PUNTO 1: attributi aggiunti
 
-    patient: list[Patient]
-    patients_lock: Lock
-    
-    def __init__(self, name: str,patients: list[Patient],patients_lock: Lock):
-        """Initialize a new doctor with the given name and list of patients."""
+    def __init__(self, name: str, patients: list[Patient], patients_lock: Lock):
+        # ← PUNTO 2: parametri aggiunti
         self.name = name
-        self.patient = patients
-        self.patients_lock = patients_lock
+        self.patients = patients          # salvo la lista condivisa
+        self.patients_lock = patients_lock  # salvo il lock condiviso
 
     def __str__(self):
-        """Return a string representation of the doctor."""
         return f"Doctor {self.name}"
 
     def consult_patient(self):
-        """Consult the next patient in the queue."""
-        if self.patients_lock.acquire(timeout=5):
-            patient = self.patient.pop(0) if len(self.patient) > 0 else None
-            self.patients_lock.release()
-            
-            if patient:
+        # ← PUNTO 4: metodo completato
+        if self.patients_lock.acquire(timeout=5):   # prendo il lock
+            # Prendo il primo paziente SE la lista non è vuota
+            patient = self.patients.pop(0) if len(self.patients) > 0 else None
+            self.patients_lock.release()             # rilascio subito il lock
+
+            if patient:   # stampo solo se ho preso un paziente
                 print(f"{self} is consulting {patient}.")
-    """A secretary in the clinic."""
 
+
+class Secretary:
     name: str
-    """The name of the secretary."""
+    patients: list[Patient]   # ← PUNTO 1: attributi aggiunti
+    patients_lock: Lock       # ← PUNTO 1: attributi aggiunti
 
-    patient: list[Patient]
-    patients_lock: Lock
-
-    def __init__(self, name: str,patients: list[Patient],patients_lock: Lock):
-        """Initialize a new secretary with the given name and list of patients."""
+    def __init__(self, name: str, patients: list[Patient], patients_lock: Lock):
+        # ← PUNTO 2: parametri aggiunti
         self.name = name
-        self.patient = patients
+        self.patients = patients
         self.patients_lock = patients_lock
 
     def __str__(self):
-        """Return a string representation of the secretary."""
         return f"Secretary {self.name}"
 
-    def add_patient_to_queue(self, patient : Patient):
-        """Add a patient to the queue."""
-        if self.patients_lock.acquire(timeout=5):
-            self.patient.append(patient)
-            self.patients_lock.release()
+    def add_patient_to_queue(self, patient: Patient):
+        # ← PUNTO 3: metodo completato
+        if self.patients_lock.acquire(timeout=5):   # prendo il lock
+            self.patients.append(patient)            # aggiungo in fondo alla coda
+            self.patients_lock.release()             # rilascio subito il lock
+
             print(f"{self} is adding {patient} to the queue.")
