@@ -18,7 +18,7 @@ source_mac = data[6:12]
 ethertype = data[12:14]
 
 # IP Version: Il byte 14 contiene sia la versione (primi 4 bit) che la lunghezza dell'header. shifto a destra (>> 4) per isolare i primi 4 bit.
-ip_version = data[14] >> 4 
+ip_version = data[14] >> 4  #oppure ip_version = data[14] // 16
 
 # TTL (Time To Live): È l'8° byte dell'header IP, quindi si trova al byte 22 assoluto (14 + 8)
 ttl = data[22]
