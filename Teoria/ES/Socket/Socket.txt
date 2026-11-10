@@ -1,0 +1,12 @@
+Socket in rete, io scrio,i datili spedisco in rete e li prende.
+
+Interfacica di programmazione per le reti, se comunico esterno DEVO usare i socket interno posso usare i Socket.
+
+Uno ascolta,uno scrive.
+Uno deve inziare a ascoltare e solo dopo ch esta ascoltando posso iniziare a scrivere.
+
+
+ASCOLTARE: BIND
+mi collego alla share memory, mi collego a questa share memoty.
+Se pariamo del mondo ip, faccio il bind e diico su quale porta ascoltare,su una porta si può ascoltare solo e un solo binding
+
